@@ -322,10 +322,16 @@ public class ResideMenu extends FrameLayout {
             pivotX = screenWidth * -0.5f;
         }
 
-        ViewHelper.setPivotX(viewActivity, pivotX);
-        ViewHelper.setPivotY(viewActivity, pivotY);
-        ViewHelper.setPivotX(imageViewShadow, pivotX);
-        ViewHelper.setPivotY(imageViewShadow, pivotY);
+//        ViewHelper.setPivotX(viewActivity, pivotX);
+//        ViewHelper.setPivotY(viewActivity, pivotY);
+//        ViewHelper.setPivotX(imageViewShadow, pivotX);
+//        ViewHelper.setPivotY(imageViewShadow, pivotY);
+        /**
+         * add by Dean Ding
+         *
+         * init folder direction
+         */
+        viewActivity.setDirection(direction);
         scaleDirection = direction;
     }
 
