@@ -544,11 +544,13 @@ public class ResideMenu extends FrameLayout {
 
                     float targetScale = getTargetScale(ev.getRawX());
 
-                    ViewHelper.setScaleX(viewActivity, targetScale);
-                    ViewHelper.setScaleY(viewActivity, targetScale);
-                    ViewHelper.setScaleX(imageViewShadow, targetScale + shadowAdjustScaleX);
-                    ViewHelper.setScaleY(imageViewShadow, targetScale + shadowAdjustScaleY);
+//                    ViewHelper.setScaleX(viewActivity, targetScale);
+//                    ViewHelper.setScaleY(viewActivity, targetScale);
+//                    ViewHelper.setScaleX(imageViewShadow, targetScale + shadowAdjustScaleX);
+//                    ViewHelper.setScaleY(imageViewShadow, targetScale + shadowAdjustScaleY);
                     ViewHelper.setAlpha(scrollViewMenu, (1 - targetScale) * 2.0f);
+
+                    viewActivity.setFolderX(targetScale);
 
                     lastRawX = ev.getRawX();
                     return true;

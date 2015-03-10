@@ -8,10 +8,12 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.dk.view.folder.extension.CoreCalc;
 import com.dk.view.folder.extension.MeshImageView;
@@ -19,7 +21,7 @@ import com.dk.view.folder.extension.MeshImageView;
 /**
  * Created by thonguyen on 15/4/14.
  */
-class TouchDisableView extends ViewGroup {
+class TouchDisableView extends RelativeLayout {
     public static final int DIRECTION_LEFT = 0;
     public static final int DIRECTION_RIGHT = 1;
     private View mContent;
@@ -82,13 +84,19 @@ class TouchDisableView extends ViewGroup {
     }
 
 
-
     /**
      * add by Dean Ding
      */
 
-    public void setFolderX() {
+    public void setFolderX(float factor) {
+        if (getChildCount() > 0
+                && !(getChildAt(0) instanceof MeshImageView)) {
+            createCache();
+            replaceView();
+        }
 
+//        mMeshImageView.setMeshVerts(mCoreCalc.createOffsetVerts(factor, 1000));
+//        mMeshImageView.setShader(mCoreCalc.getShader());
     }
 
 
@@ -114,20 +122,26 @@ class TouchDisableView extends ViewGroup {
     }
 
     private void replaceView() {
+//        mContent.setVisibility(View.GONE);
         removeAllViews();
+//        addView(mContent);
         mMeshImageView = new MeshImageView(getContext());
         mMeshImageView.setImageBitmap(mDrawingCache);
+        mMeshImageView.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+        setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
 
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(-1, -1);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(mDrawingCache.getWidth(), mDrawingCache.getHeight());
+        //WHF? why it can be shown?
         addView(mMeshImageView, params);
-        if (mDirection ==DIRECTION_LEFT) {
+
+        if (mDirection == DIRECTION_LEFT) {
             mCoreCalc.setDirection(CoreCalc.Direction.LEFT);
         } else {
             mCoreCalc.setDirection(CoreCalc.Direction.RIGHT);
         }
 
         mMeshImageView.setMeshVerts(mCoreCalc.createOffsetVerts(1,
-                getHeight()/2));
+                getHeight() / 2));
     }
 
     private void revertView() {
@@ -138,10 +152,10 @@ class TouchDisableView extends ViewGroup {
     }
 
     public Bitmap drawViewToBitmap(Bitmap dest, View view, int width,
-                                          int height, int downSampling, Drawable drawable) {
+                                   int height, int downSampling, Drawable drawable) {
         float scale = 1f / downSampling;
         int heightCopy = view.getHeight();
-        // view.layout(0, 0, width, height);
+//        view.layout(0, 0, width, height);
         int bmpWidth = (int) (width * scale);
         int bmpHeight = (int) (height * scale);
         if (dest == null || dest.getWidth() != bmpWidth
@@ -156,7 +170,7 @@ class TouchDisableView extends ViewGroup {
             c.scale(scale, scale);
         }
         view.draw(c);
-        // view.layout(0, 0, width, heightCopy);
+//        view.layout(0, 0, width, heightCopy);
         return dest;
     }
 
