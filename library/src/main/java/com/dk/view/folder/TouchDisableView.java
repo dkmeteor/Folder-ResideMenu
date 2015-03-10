@@ -1,17 +1,20 @@
 package com.dk.view.folder;
 
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
@@ -21,7 +24,7 @@ import com.dk.view.folder.extension.MeshImageView;
 /**
  * Created by thonguyen on 15/4/14.
  */
-class TouchDisableView extends RelativeLayout {
+class TouchDisableView extends FrameLayout {
     public static final int DIRECTION_LEFT = 0;
     public static final int DIRECTION_RIGHT = 1;
     private View mContent;
@@ -60,14 +63,14 @@ class TouchDisableView extends RelativeLayout {
 
         final int contentWidth = getChildMeasureSpec(widthMeasureSpec, 0, width);
         final int contentHeight = getChildMeasureSpec(heightMeasureSpec, 0, height);
-        mContent.measure(contentWidth, contentHeight);
+        getChildAt(0).measure(contentWidth, contentHeight);
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         final int width = r - l;
         final int height = b - t;
-        mContent.layout(0, 0, width, height);
+        getChildAt(0).layout(0, 0, width, height);
     }
 
     @Override
@@ -95,8 +98,8 @@ class TouchDisableView extends RelativeLayout {
             replaceView();
         }
 
-//        mMeshImageView.setMeshVerts(mCoreCalc.createOffsetVerts(factor, 1000));
-//        mMeshImageView.setShader(mCoreCalc.getShader());
+        mMeshImageView.setMeshVerts(mCoreCalc.createOffsetVerts(factor, 1000));
+        mMeshImageView.setShader(mCoreCalc.getShader());
     }
 
 
@@ -121,18 +124,20 @@ class TouchDisableView extends RelativeLayout {
 
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     private void replaceView() {
 //        mContent.setVisibility(View.GONE);
-        removeAllViews();
+//        removeAllViews();
 //        addView(mContent);
         mMeshImageView = new MeshImageView(getContext());
         mMeshImageView.setImageBitmap(mDrawingCache);
-        mMeshImageView.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
-        setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
 
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(mDrawingCache.getWidth(), mDrawingCache.getHeight());
-        //WHF? why it can be shown?
-        addView(mMeshImageView, params);
+
+//        setContent(mMeshImageView);
+
+
+        this.removeView(mContent);
+        addView(mMeshImageView);
 
         if (mDirection == DIRECTION_LEFT) {
             mCoreCalc.setDirection(CoreCalc.Direction.LEFT);

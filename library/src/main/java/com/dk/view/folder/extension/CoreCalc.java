@@ -90,7 +90,7 @@ public class CoreCalc {
 					curveFactor = 1;
 				}
 
-				int direction = mDirection == Direction.LEFT ? -1 : 1;
+				int direction = mDirection == Direction.RIGHT ? -1 : 1;
 				
 				 meshVerts[i * 102 + 2 * j] = meshVerts[i * 102 + 2 * j]
 				 * (0.6f + 0.4f * offset * offset*offset*offset);

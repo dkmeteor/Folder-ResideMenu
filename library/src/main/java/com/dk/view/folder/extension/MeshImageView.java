@@ -30,28 +30,29 @@ public class MeshImageView extends View {
 //        super.onLayout(changed, left, top, right, bottom);
 //    }
 //
-//    @Override
-//    public void draw(Canvas canvas) {
-//        super.draw(canvas);
-//        if (mPaint == null)
-//            mPaint = new Paint();
-//
-//        if (mShader != null) {
-//            mShaderBitmap = Bitmap.createBitmap(canvas.getWidth(),
-//                    canvas.getHeight(), Bitmap.Config.ARGB_8888);
-//            Canvas tempCanvas = new Canvas(mShaderBitmap);
-//            Paint paint = new Paint();
-//            paint.setShader(mShader);
-//            tempCanvas.drawPaint(paint);
-//        }
-//        if (mVerts != null) {
-//            canvas.drawBitmapMesh(mBitmap, 50, 5, mVerts, 0, null, 0, null);
-//            if (mShaderBitmap != null)
-//                canvas.drawBitmapMesh(mShaderBitmap, 50, 5, mVerts, 0, null, 0,
-//                        null);
-//        } else
-//            canvas.drawBitmap(mBitmap, new Matrix(), mPaint);
-//    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        super.draw(canvas);
+        if (mPaint == null)
+            mPaint = new Paint();
+
+        if (mShader != null) {
+            mShaderBitmap = Bitmap.createBitmap(canvas.getWidth(),
+                    canvas.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas tempCanvas = new Canvas(mShaderBitmap);
+            Paint paint = new Paint();
+            paint.setShader(mShader);
+            tempCanvas.drawPaint(paint);
+        }
+        if (mVerts != null) {
+            canvas.drawBitmapMesh(mBitmap, 50, 5, mVerts, 0, null, 0, null);
+            if (mShaderBitmap != null)
+                canvas.drawBitmapMesh(mShaderBitmap, 50, 5, mVerts, 0, null, 0,
+                        null);
+        } else
+            canvas.drawBitmap(mBitmap, new Matrix(), mPaint);
+    }
 
     public void setImageBitmap(Bitmap bitmap) {
         mBitmap = bitmap;

@@ -493,20 +493,24 @@ public class ResideMenu extends FrameLayout {
     }
 
     private float getTargetScale(float currentRawX) {
-        float scaleFloatX = ((currentRawX - lastRawX) / getScreenWidth()) * 0.75f;
+        float scaleFloatX = ((currentRawX - lastActionDownX) / getScreenWidth()) ;
         scaleFloatX = scaleDirection == DIRECTION_RIGHT ? -scaleFloatX : scaleFloatX;
 
-        float targetScale = ViewHelper.getScaleX(viewActivity) - scaleFloatX;
-        targetScale = targetScale > 1.0f ? 1.0f : targetScale;
-        targetScale = targetScale < 0.5f ? 0.5f : targetScale;
-        return targetScale;
+        scaleFloatX = Math.abs(scaleFloatX);
+
+//        float targetScale = ViewHelper.getScaleX(viewActivity) - scaleFloatX;
+//        targetScale = targetScale > 1.0f ? 1.0f : targetScale;
+//        targetScale = targetScale < 0.5f ? 0.5f : targetScale;
+        System.out.println("scaleFloatX:"+scaleFloatX);
+        return 1-scaleFloatX;
     }
 
     private float lastActionDownX, lastActionDownY;
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        float currentActivityScaleX = ViewHelper.getScaleX(viewActivity);
+        float currentActivityScaleX=1;
+//        float currentActivityScaleX = ViewHelper.getScaleX(viewActivity);
         if (currentActivityScaleX == 1.0f)
             setScaleDirectionByRawX(ev.getRawX());
 
@@ -539,11 +543,11 @@ public class ResideMenu extends FrameLayout {
                         ev.setAction(MotionEvent.ACTION_CANCEL);
                     }
                 } else if (pressedState == PRESSED_MOVE_HORIZONTAL) {
-                    if (currentActivityScaleX < 0.95)
+//                    if (currentActivityScaleX < 0.95)
                         showScrollViewMenu(scrollViewMenu);
 
                     float targetScale = getTargetScale(ev.getRawX());
-
+                    currentActivityScaleX=targetScale;
 //                    ViewHelper.setScaleX(viewActivity, targetScale);
 //                    ViewHelper.setScaleY(viewActivity, targetScale);
 //                    ViewHelper.setScaleX(imageViewShadow, targetScale + shadowAdjustScaleX);
