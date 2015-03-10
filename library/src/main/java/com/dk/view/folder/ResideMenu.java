@@ -125,9 +125,9 @@ public class ResideMenu extends FrameLayout {
         viewActivity.setContent(mContent);
         addView(viewActivity);
 
-        ViewGroup parent = (ViewGroup) scrollViewLeftMenu.getParent();
-        parent.removeView(scrollViewLeftMenu);
-        parent.removeView(scrollViewRightMenu);
+//        ViewGroup parent = (ViewGroup) scrollViewLeftMenu.getParent();
+//        parent.removeView(scrollViewLeftMenu);
+//        parent.removeView(scrollViewRightMenu);
     }
 
     private void setShadowAdjustScaleXByOrientation() {
@@ -493,7 +493,7 @@ public class ResideMenu extends FrameLayout {
     }
 
     private float getTargetScale(float currentRawX) {
-        float scaleFloatX = ((currentRawX - lastActionDownX) / getScreenWidth()) ;
+        float scaleFloatX = ((currentRawX - lastActionDownX) / getScreenWidth());
         scaleFloatX = scaleDirection == DIRECTION_RIGHT ? -scaleFloatX : scaleFloatX;
 
         scaleFloatX = Math.abs(scaleFloatX);
@@ -501,15 +501,15 @@ public class ResideMenu extends FrameLayout {
 //        float targetScale = ViewHelper.getScaleX(viewActivity) - scaleFloatX;
 //        targetScale = targetScale > 1.0f ? 1.0f : targetScale;
 //        targetScale = targetScale < 0.5f ? 0.5f : targetScale;
-        System.out.println("scaleFloatX:"+scaleFloatX);
-        return 1-scaleFloatX;
+        System.out.println("scaleFloatX:" + scaleFloatX);
+        return 1 - scaleFloatX;
     }
 
     private float lastActionDownX, lastActionDownY;
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        float currentActivityScaleX=1;
+        float currentActivityScaleX = 1;
 //        float currentActivityScaleX = ViewHelper.getScaleX(viewActivity);
         if (currentActivityScaleX == 1.0f)
             setScaleDirectionByRawX(ev.getRawX());
@@ -544,10 +544,10 @@ public class ResideMenu extends FrameLayout {
                     }
                 } else if (pressedState == PRESSED_MOVE_HORIZONTAL) {
 //                    if (currentActivityScaleX < 0.95)
-                        showScrollViewMenu(scrollViewMenu);
+                    showScrollViewMenu(scrollViewMenu);
 
                     float targetScale = getTargetScale(ev.getRawX());
-                    currentActivityScaleX=targetScale;
+                    currentActivityScaleX = targetScale;
 //                    ViewHelper.setScaleX(viewActivity, targetScale);
 //                    ViewHelper.setScaleY(viewActivity, targetScale);
 //                    ViewHelper.setScaleX(imageViewShadow, targetScale + shadowAdjustScaleX);
@@ -616,14 +616,16 @@ public class ResideMenu extends FrameLayout {
     }
 
     private void showScrollViewMenu(ScrollView scrollViewMenu) {
-        if (scrollViewMenu != null && scrollViewMenu.getParent() == null) {
-            addView(scrollViewMenu);
-        }
+        scrollViewMenu.setVisibility(View.VISIBLE);
+//        if (scrollViewMenu != null && scrollViewMenu.getParent() == null) {
+//            addView(scrollViewMenu);
+//        }
     }
 
     private void hideScrollViewMenu(ScrollView scrollViewMenu) {
-        if (scrollViewMenu != null && scrollViewMenu.getParent() != null) {
-            removeView(scrollViewMenu);
-        }
+        scrollViewMenu.setVisibility(View.INVISIBLE);
+//        if (scrollViewMenu != null && scrollViewMenu.getParent() != null) {
+//            removeView(scrollViewMenu);
+//        }
     }
 }
