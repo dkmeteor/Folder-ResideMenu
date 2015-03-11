@@ -24,7 +24,7 @@ import com.dk.view.folder.extension.MeshImageView;
 /**
  * Created by thonguyen on 15/4/14.
  */
-class TouchDisableView extends FrameLayout {
+public class TouchDisableView extends FrameLayout {
     public static final int DIRECTION_LEFT = 0;
     public static final int DIRECTION_RIGHT = 1;
     private View mContent;
@@ -33,6 +33,7 @@ class TouchDisableView extends FrameLayout {
     private CoreCalc mCoreCalc;
     //	private int mMode;
     private boolean mTouchDisabled = false;
+    private float folderFactor = 1.0f;
 
     public TouchDisableView(Context context) {
         this(context, null);
@@ -92,6 +93,7 @@ class TouchDisableView extends FrameLayout {
      */
 
     public void setFolderX(float factor) {
+        folderFactor = factor;
         if (getChildCount() > 0
                 && !(getChildAt(0) instanceof MeshImageView)) {
             createCache();
@@ -102,6 +104,9 @@ class TouchDisableView extends FrameLayout {
         mMeshImageView.setShader(mCoreCalc.getShader());
     }
 
+    public float getFolderX() {
+        return folderFactor;
+    }
 
     public void setDirection(int direction) {
         mDirection = direction;
@@ -139,11 +144,7 @@ class TouchDisableView extends FrameLayout {
         this.removeView(mContent);
         addView(mMeshImageView);
 
-        if (mDirection == DIRECTION_LEFT) {
-            mCoreCalc.setDirection(CoreCalc.Direction.LEFT);
-        } else {
-            mCoreCalc.setDirection(CoreCalc.Direction.RIGHT);
-        }
+        mCoreCalc.setDirection(mDirection);
 
         mMeshImageView.setMeshVerts(mCoreCalc.createOffsetVerts(1,
                 getHeight() / 2));

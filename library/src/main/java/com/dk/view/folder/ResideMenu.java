@@ -509,8 +509,7 @@ public class ResideMenu extends FrameLayout {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        float currentActivityScaleX = 1;
-//        float currentActivityScaleX = ViewHelper.getScaleX(viewActivity);
+        float currentActivityScaleX = viewActivity.getFolderX();
         if (currentActivityScaleX == 1.0f)
             setScaleDirectionByRawX(ev.getRawX());
 
