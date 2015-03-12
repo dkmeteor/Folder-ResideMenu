@@ -7,7 +7,7 @@ import com.dk.view.folder.TouchDisableView;
 
 public class CoreCalc {
 
-    private static final int SIN_lENGTH_FACTOR =60000;
+    private static final int SIN_lENGTH_FACTOR =10000;
     private static final float SIN_A =32;
     private static final int GRAY = 0x444444;
     private static final int TRANSPARENT = 0x00000000;

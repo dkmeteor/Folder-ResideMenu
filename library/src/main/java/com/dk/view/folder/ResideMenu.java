@@ -268,16 +268,16 @@ public class ResideMenu extends FrameLayout {
     public void openMenu(int direction) {
 
         setScaleDirection(direction);
-
+//
         isOpened = true;
-        AnimatorSet scaleDown_activity = buildScaleDownAnimation(viewActivity, mScaleValue, mScaleValue);
-        AnimatorSet scaleDown_shadow = buildScaleDownAnimation(imageViewShadow,
-                mScaleValue + shadowAdjustScaleX, mScaleValue + shadowAdjustScaleY);
-        AnimatorSet alpha_menu = buildMenuAnimation(scrollViewMenu, 1.0f);
-        scaleDown_shadow.addListener(animationListener);
-        scaleDown_activity.playTogether(scaleDown_shadow);
-        scaleDown_activity.playTogether(alpha_menu);
-        scaleDown_activity.start();
+//        AnimatorSet scaleDown_activity = buildScaleDownAnimation(viewActivity, mScaleValue, mScaleValue);
+//        AnimatorSet scaleDown_shadow = buildScaleDownAnimation(imageViewShadow,
+//                mScaleValue + shadowAdjustScaleX, mScaleValue + shadowAdjustScaleY);
+//        AnimatorSet alpha_menu = buildMenuAnimation(scrollViewMenu, 1.0f);
+//        scaleDown_shadow.addListener(animationListener);
+//        scaleDown_activity.playTogether(scaleDown_shadow);
+//        scaleDown_activity.playTogether(alpha_menu);
+//        scaleDown_activity.start();
     }
 
     /**
@@ -286,13 +286,13 @@ public class ResideMenu extends FrameLayout {
     public void closeMenu() {
 
         isOpened = false;
-        AnimatorSet scaleUp_activity = buildScaleUpAnimation(viewActivity, 1.0f, 1.0f);
-        AnimatorSet scaleUp_shadow = buildScaleUpAnimation(imageViewShadow, 1.0f, 1.0f);
-        AnimatorSet alpha_menu = buildMenuAnimation(scrollViewMenu, 0.0f);
-        scaleUp_activity.addListener(animationListener);
-        scaleUp_activity.playTogether(scaleUp_shadow);
-        scaleUp_activity.playTogether(alpha_menu);
-        scaleUp_activity.start();
+//        AnimatorSet scaleUp_activity = buildScaleUpAnimation(viewActivity, 1.0f, 1.0f);
+//        AnimatorSet scaleUp_shadow = buildScaleUpAnimation(imageViewShadow, 1.0f, 1.0f);
+//        AnimatorSet alpha_menu = buildMenuAnimation(scrollViewMenu, 0.0f);
+//        scaleUp_activity.addListener(animationListener);
+//        scaleUp_activity.playTogether(scaleUp_shadow);
+//        scaleUp_activity.playTogether(alpha_menu);
+//        scaleUp_activity.start();
     }
 
     @Deprecated
