@@ -501,7 +501,6 @@ public class ResideMenu extends FrameLayout {
 //        float targetScale = ViewHelper.getScaleX(viewActivity) - scaleFloatX;
 //        targetScale = targetScale > 1.0f ? 1.0f : targetScale;
 //        targetScale = targetScale < 0.5f ? 0.5f : targetScale;
-        System.out.println("scaleFloatX:" + scaleFloatX);
         return 1 - scaleFloatX;
     }
 

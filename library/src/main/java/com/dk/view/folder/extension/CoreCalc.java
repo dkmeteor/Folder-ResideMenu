@@ -84,18 +84,19 @@ public class CoreCalc {
      * @return
      */
     private float[] applyScaleXEffect(float offset, float pointerY) {
+        float curveFactor = 0;
+
+//                if (offset > 0.35) {
+//        curveFactor = (float) (1 + Math.pow(
+//                (offset) / 0.3f, 2) * 10);
+//                } else {
+//                    curveFactor = 1;
+//                }
+
+        curveFactor= offset;
+//        System.out.println("curveFactor:"+curveFactor);
         for (int i = 0; i < 6; i++)
             for (int j = 0; j < 51; j++) {
-
-                float curveFactor = 0;
-
-                if (offset > 0.85) {
-                    curveFactor = (float) (1 + Math.pow(
-                            (offset - 0.85f) / 0.3f, 3) * 100f);
-                } else {
-                    curveFactor = 1;
-                }
-
                 if (mDirection == TouchDisableView.DIRECTION_RIGHT) {
                     meshVerts[i * 102 + 2 * j] = meshVerts[i * 102 + 2 * j]
                             * (0.4f + 0.6f * offset * offset * offset * offset);
@@ -104,7 +105,7 @@ public class CoreCalc {
                             * (1 +
                             (meshVerts[i * 102 + 2 * j + 1] - pointerY)
                                     * (meshVerts[i * 102 + 2 * j + 1] - pointerY)
-                                    / 10000 / width / curveFactor);
+                                    /5000/ width / curveFactor);
                 } else {
 //
                 }
