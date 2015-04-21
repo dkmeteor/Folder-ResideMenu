@@ -95,4 +95,9 @@ Icon
 
 /src/.classpath
 /src/.classpath
+
+# Intellij project files
+*.iml
+*.ipr
+*.iws
 .idea/
