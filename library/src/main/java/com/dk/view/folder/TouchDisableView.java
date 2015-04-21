@@ -10,13 +10,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 
 import com.dk.view.folder.extension.CoreCalc;
 import com.dk.view.folder.extension.MeshImageView;
@@ -93,7 +89,14 @@ public class TouchDisableView extends FrameLayout {
      */
 
     public void setFolderX(float factor) {
+        if (factor < 0.5f)
+            factor = 0.5f;
+
+        if (factor > 1)
+            factor = 1f;
+
         folderFactor = factor;
+        System.out.println("folderFactor:" + folderFactor);
         if (getChildCount() > 0
                 && !(getChildAt(0) instanceof MeshImageView)) {
             createCache();
@@ -136,11 +139,7 @@ public class TouchDisableView extends FrameLayout {
 //        addView(mContent);
         mMeshImageView = new MeshImageView(getContext());
         mMeshImageView.setImageBitmap(mDrawingCache);
-
-
 //        setContent(mMeshImageView);
-
-
         this.removeView(mContent);
         addView(mMeshImageView);
 
@@ -150,7 +149,7 @@ public class TouchDisableView extends FrameLayout {
                 getHeight() / 2));
     }
 
-    private void revertView() {
+    public void revertView() {
         if (mContent != null && mContent.getParent() == null) {
             removeAllViews();
             addView(mContent);

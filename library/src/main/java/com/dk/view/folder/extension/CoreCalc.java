@@ -7,9 +7,9 @@ import com.dk.view.folder.TouchDisableView;
 
 public class CoreCalc {
 
-    //波长系数
-    private static final int SIN_lENGTH_FACTOR =60000;
-    private static final float SIN_A =32;
+    //λ
+    private static final int SIN_lENGTH_FACTOR = 60000;
+    private static final float SIN_A = 32;
     private static final int GRAY = 0x444444;
     private static final int TRANSPARENT = 0x00000000;
     private static int mAlpha = 0xff;
@@ -65,9 +65,7 @@ public class CoreCalc {
                             + (float) (SIN_A * (1 - offset) * Math.sin(originVerts[i
                             * 102 + 2 * j]
                             * originVerts[i * 102 + 2 * j] / SIN_lENGTH_FACTOR));
-                }
-                else
-                {
+                } else {
 
                 }
             }
@@ -93,7 +91,7 @@ public class CoreCalc {
 //                    curveFactor = 1;
 //                }
 
-        curveFactor= offset;
+        curveFactor = offset;
 //        System.out.println("curveFactor:"+curveFactor);
         for (int i = 0; i < 6; i++)
             for (int j = 0; j < 51; j++) {
@@ -105,7 +103,7 @@ public class CoreCalc {
                             * (1 +
                             (meshVerts[i * 102 + 2 * j + 1] - pointerY)
                                     * (meshVerts[i * 102 + 2 * j + 1] - pointerY)
-                                    /5000/ width / curveFactor);
+                                    / 5000 / width / curveFactor);
                 } else {
 //
                 }
