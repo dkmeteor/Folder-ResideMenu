@@ -31,8 +31,13 @@ public class MenuActivity extends FragmentActivity implements View.OnClickListen
         setContentView(R.layout.main);
         mContext = this;
         setUpMenu();
+
         if (savedInstanceState == null)
-            changeFragment(new HomeFragment());
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_fragment, new HomeFragment(), "fragment")
+                    .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .commit();
     }
 
     private void setUpMenu() {
@@ -113,7 +118,7 @@ public class MenuActivity extends FragmentActivity implements View.OnClickListen
 
     private void changeFragment(final Fragment targetFragment) {
         resideMenu.clearIgnoredViewList();
-        if(resideMenu.isOpened())
+        if (resideMenu.isOpened())
             resideMenu.closeMenu();
 
         new Handler() {

@@ -137,7 +137,7 @@ public class CoreCalc {
         float p8 = (float) Math.sqrt((Math.PI / 2 + 7 * Math.PI) * SIN_lENGTH_FACTOR);
         float p9 = (float) Math.sqrt((Math.PI / 2 + 8 * Math.PI) * SIN_lENGTH_FACTOR);
 
-        int gray = ((int) (mAlpha * ((1l - offset) * 0.9f + 0.1f)) << 24)
+        int gray = ((int) (mAlpha * ((1l - offset) * 1f )) << 24)
                 | GRAY;
 
         Shader shader = new LinearGradient(0, 0, width, 0, new int[]{gray,

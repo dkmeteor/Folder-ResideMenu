@@ -257,6 +257,7 @@ public class ResideMenu extends FrameLayout {
 //        scaleDown_activity.start();
 
         ObjectAnimator animator = ObjectAnimator.ofFloat(viewActivity, "FolderX", viewActivity.getFolderX(), 0.5f);
+        animator.addListener(openAnimatorListener);
         animator.setDuration(mDuration);
         animator.start();
     }
@@ -278,12 +279,12 @@ public class ResideMenu extends FrameLayout {
 
         ObjectAnimator animator = ObjectAnimator.ofFloat(viewActivity, "FolderX", viewActivity.getFolderX(), 1f);
         animator.setDuration(500);
-        animator.addListener(animatorListener);
+        animator.addListener(cloaseAnimatorListener);
         animator.start();
 
     }
 
-    private Animator.AnimatorListener animatorListener = new Animator.AnimatorListener() {
+    private Animator.AnimatorListener cloaseAnimatorListener = new Animator.AnimatorListener() {
         @Override
         public void onAnimationStart(Animator animator) {
 
@@ -296,8 +297,28 @@ public class ResideMenu extends FrameLayout {
 
         @Override
         public void onAnimationCancel(Animator animator) {
-
             viewActivity.revertView();
+        }
+
+        @Override
+        public void onAnimationRepeat(Animator animator) {
+
+        }
+    };
+
+    private Animator.AnimatorListener openAnimatorListener = new Animator.AnimatorListener() {
+        @Override
+        public void onAnimationStart(Animator animator) {
+            viewActivity.setTouchDisable(false);
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animator) {
+
+        }
+
+        @Override
+        public void onAnimationCancel(Animator animator) {
         }
 
         @Override
