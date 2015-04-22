@@ -34,6 +34,7 @@ public class ResideMenu extends FrameLayout {
     private static final int PRESSED_DOWN = 3;
     private static final int PRESSED_DONE = 4;
     private static final int PRESSED_MOVE_VERTICAL = 5;
+    private static final int DURATION_DEFAULT = 500;
 
     private ImageView imageViewBackground;
     private LinearLayout layoutLeftMenu;
@@ -69,6 +70,7 @@ public class ResideMenu extends FrameLayout {
     private List<Integer> disabledSwipeDirection = new ArrayList<Integer>();
     // Valid scale factor is between 0.0f and 1.0f.
     private float mScaleValue = 0.5f;
+    private int mDuration = DURATION_DEFAULT;
 
     public ResideMenu(Context context) {
         super(context);
@@ -239,6 +241,9 @@ public class ResideMenu extends FrameLayout {
      */
     public void openMenu(int direction) {
 
+        if (isOpened())
+            return;
+
         setScaleDirection(direction);
 //
         isOpened = true;
@@ -252,7 +257,7 @@ public class ResideMenu extends FrameLayout {
 //        scaleDown_activity.start();
 
         ObjectAnimator animator = ObjectAnimator.ofFloat(viewActivity, "FolderX", viewActivity.getFolderX(), 0.5f);
-        animator.setDuration(500);
+        animator.setDuration(mDuration);
         animator.start();
     }
 
@@ -260,7 +265,8 @@ public class ResideMenu extends FrameLayout {
      * Close the menu;
      */
     public void closeMenu() {
-
+        if (!isOpened())
+            return;
         isOpened = false;
 //        AnimatorSet scaleUp_activity = buildScaleUpAnimation(viewActivity, 1.0f, 1.0f);
 //        AnimatorSet scaleUp_shadow = buildScaleUpAnimation(imageViewShadow, 1.0f, 1.0f);

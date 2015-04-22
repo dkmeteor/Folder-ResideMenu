@@ -1,6 +1,7 @@
 package com.dk.sample.folder.residemenu;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -11,7 +12,8 @@ import android.widget.Toast;
 import com.dk.view.folder.ResideMenu;
 import com.dk.view.folder.ResideMenuItem;
 
-public class MenuActivity extends FragmentActivity implements View.OnClickListener{
+
+public class MenuActivity extends FragmentActivity implements View.OnClickListener {
 
     private ResideMenu resideMenu;
     private MenuActivity mContext;
@@ -29,7 +31,7 @@ public class MenuActivity extends FragmentActivity implements View.OnClickListen
         setContentView(R.layout.main);
         mContext = this;
         setUpMenu();
-        if( savedInstanceState == null )
+        if (savedInstanceState == null)
             changeFragment(new HomeFragment());
     }
 
@@ -44,8 +46,8 @@ public class MenuActivity extends FragmentActivity implements View.OnClickListen
         resideMenu.setScaleValue(0.6f);
 
         // create menu items;
-        itemHome     = new ResideMenuItem(this, R.drawable.icon_home,     "Home");
-        itemProfile  = new ResideMenuItem(this, R.drawable.icon_profile,  "Profile");
+        itemHome = new ResideMenuItem(this, R.drawable.icon_home, "Home");
+        itemProfile = new ResideMenuItem(this, R.drawable.icon_profile, "Profile");
         itemCalendar = new ResideMenuItem(this, R.drawable.icon_calendar, "Calendar");
         itemSettings = new ResideMenuItem(this, R.drawable.icon_settings, "Settings");
 
@@ -84,13 +86,13 @@ public class MenuActivity extends FragmentActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
 
-        if (view == itemHome){
+        if (view == itemHome) {
             changeFragment(new HomeFragment());
-        }else if (view == itemProfile){
+        } else if (view == itemProfile) {
             changeFragment(new ProfileFragment());
-        }else if (view == itemCalendar){
+        } else if (view == itemCalendar) {
             changeFragment(new CalendarFragment());
-        }else if (view == itemSettings){
+        } else if (view == itemSettings) {
             changeFragment(new SettingsFragment());
         }
 
@@ -109,17 +111,26 @@ public class MenuActivity extends FragmentActivity implements View.OnClickListen
         }
     };
 
-    private void changeFragment(Fragment targetFragment){
+    private void changeFragment(final Fragment targetFragment) {
         resideMenu.clearIgnoredViewList();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_fragment, targetFragment, "fragment")
-                .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
+        if(resideMenu.isOpened())
+            resideMenu.closeMenu();
+
+        new Handler() {
+        }.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_fragment, targetFragment, "fragment")
+                        .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .commit();
+            }
+        }, 600);
     }
 
     // What good method is to access resideMenu？
-    public ResideMenu getResideMenu(){
+    public ResideMenu getResideMenu() {
         return resideMenu;
     }
 }

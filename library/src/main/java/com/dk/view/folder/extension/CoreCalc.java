@@ -100,10 +100,10 @@ public class CoreCalc {
                             * (0.4f + 0.6f * offset * offset * offset * offset);
 
                     meshVerts[i * 102 + 2 * j] = meshVerts[i * 102 + 2 * j]
-                            * (1 +
+                            * (1 + (1 - curveFactor) *
                             (meshVerts[i * 102 + 2 * j + 1] - pointerY)
-                                    * (meshVerts[i * 102 + 2 * j + 1] - pointerY)
-                                    / 5000 / width / curveFactor);
+                            * (meshVerts[i * 102 + 2 * j + 1] - pointerY)
+                            / 5000 / width / curveFactor);
                 } else {
 //
                 }
