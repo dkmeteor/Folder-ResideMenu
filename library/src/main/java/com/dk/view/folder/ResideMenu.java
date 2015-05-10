@@ -260,13 +260,14 @@ public class ResideMenu extends FrameLayout {
         animator.addListener(openAnimatorListener);
         animator.setDuration(mDuration);
         animator.start();
+
     }
 
     /**
      * Close the menu;
      */
     public void closeMenu() {
-        if (!isOpened())
+        if (!isOpened() && viewActivity.getFolderX() == 1)
             return;
         isOpened = false;
 //        AnimatorSet scaleUp_activity = buildScaleUpAnimation(viewActivity, 1.0f, 1.0f);
@@ -281,7 +282,6 @@ public class ResideMenu extends FrameLayout {
         animator.setDuration(500);
         animator.addListener(cloaseAnimatorListener);
         animator.start();
-
     }
 
     private Animator.AnimatorListener cloaseAnimatorListener = new Animator.AnimatorListener() {
@@ -518,6 +518,7 @@ public class ResideMenu extends FrameLayout {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+
         float currentActivityScaleX = viewActivity.getFolderX();
         if (currentActivityScaleX == 1.0f)
             setScaleDirectionByRawX(ev.getRawX());
