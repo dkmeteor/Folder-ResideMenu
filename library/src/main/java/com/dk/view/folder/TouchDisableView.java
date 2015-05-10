@@ -75,6 +75,12 @@ public class TouchDisableView extends FrameLayout {
         return mTouchDisabled;
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        super.onTouchEvent(event);
+        return mTouchDisabled;
+    }
+
     void setTouchDisable(boolean disableTouch) {
         mTouchDisabled = disableTouch;
     }

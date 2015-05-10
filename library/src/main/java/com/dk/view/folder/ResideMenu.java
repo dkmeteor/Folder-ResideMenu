@@ -280,11 +280,11 @@ public class ResideMenu extends FrameLayout {
 
         ObjectAnimator animator = ObjectAnimator.ofFloat(viewActivity, "FolderX", viewActivity.getFolderX(), 1f);
         animator.setDuration(500);
-        animator.addListener(cloaseAnimatorListener);
+        animator.addListener(closeAnimatorListener);
         animator.start();
     }
 
-    private Animator.AnimatorListener cloaseAnimatorListener = new Animator.AnimatorListener() {
+    private Animator.AnimatorListener closeAnimatorListener = new Animator.AnimatorListener() {
         @Override
         public void onAnimationStart(Animator animator) {
 
@@ -410,42 +410,42 @@ public class ResideMenu extends FrameLayout {
         }
     };
 
-    private Animator.AnimatorListener animationListener = new Animator.AnimatorListener() {
-        @Override
-        public void onAnimationStart(Animator animation) {
-            if (isOpened()) {
-                showScrollViewMenu(scrollViewMenu);
-                if (menuListener != null)
-                    menuListener.openMenu();
-            }
-        }
-
-        @Override
-        public void onAnimationEnd(Animator animation) {
-            // reset the view;
-            if (isOpened()) {
-                viewActivity.setTouchDisable(true);
-                viewActivity.setOnClickListener(viewActivityOnClickListener);
-            } else {
-                viewActivity.setTouchDisable(false);
-                viewActivity.setOnClickListener(null);
-                hideScrollViewMenu(scrollViewLeftMenu);
-                hideScrollViewMenu(scrollViewRightMenu);
-                if (menuListener != null)
-                    menuListener.closeMenu();
-            }
-        }
-
-        @Override
-        public void onAnimationCancel(Animator animation) {
-
-        }
-
-        @Override
-        public void onAnimationRepeat(Animator animation) {
-
-        }
-    };
+//    private Animator.AnimatorListener animationListener = new Animator.AnimatorListener() {
+//        @Override
+//        public void onAnimationStart(Animator animation) {
+//            if (isOpened()) {
+//                showScrollViewMenu(scrollViewMenu);
+//                if (menuListener != null)
+//                    menuListener.openMenu();
+//            }
+//        }
+//
+//        @Override
+//        public void onAnimationEnd(Animator animation) {
+//            // reset the view;
+//            if (isOpened()) {
+//                viewActivity.setTouchDisable(true);
+//                viewActivity.setOnClickListener(viewActivityOnClickListener);
+//            } else {
+//                viewActivity.setTouchDisable(false);
+//                viewActivity.setOnClickListener(null);
+//                hideScrollViewMenu(scrollViewLeftMenu);
+//                hideScrollViewMenu(scrollViewRightMenu);
+//                if (menuListener != null)
+//                    menuListener.closeMenu();
+//            }
+//        }
+//
+//        @Override
+//        public void onAnimationCancel(Animator animation) {
+//
+//        }
+//
+//        @Override
+//        public void onAnimationRepeat(Animator animation) {
+//
+//        }
+//    };
 
 
     /**
@@ -585,6 +585,17 @@ public class ResideMenu extends FrameLayout {
         }
         lastRawX = ev.getRawX();
         return super.dispatchTouchEvent(ev);
+    }
+
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return super.onInterceptTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return super.onTouchEvent(event);
     }
 
     public int getScreenHeight() {
