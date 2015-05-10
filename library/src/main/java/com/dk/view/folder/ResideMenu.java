@@ -293,6 +293,17 @@ public class ResideMenu extends FrameLayout {
         @Override
         public void onAnimationEnd(Animator animator) {
             viewActivity.revertView();
+            if (isOpened()) {
+                viewActivity.setTouchDisable(true);
+                viewActivity.setOnClickListener(viewActivityOnClickListener);
+            } else {
+                viewActivity.setTouchDisable(false);
+                viewActivity.setOnClickListener(null);
+                hideScrollViewMenu(scrollViewLeftMenu);
+                hideScrollViewMenu(scrollViewRightMenu);
+                if (menuListener != null)
+                    menuListener.closeMenu();
+            }
         }
 
         @Override
@@ -310,11 +321,26 @@ public class ResideMenu extends FrameLayout {
         @Override
         public void onAnimationStart(Animator animator) {
             viewActivity.setTouchDisable(false);
+            if (isOpened()) {
+                showScrollViewMenu(scrollViewMenu);
+                if (menuListener != null)
+                    menuListener.openMenu();
+            }
         }
 
         @Override
         public void onAnimationEnd(Animator animator) {
-
+            if (isOpened()) {
+                viewActivity.setTouchDisable(true);
+                viewActivity.setOnClickListener(viewActivityOnClickListener);
+            } else {
+                viewActivity.setTouchDisable(false);
+                viewActivity.setOnClickListener(null);
+                hideScrollViewMenu(scrollViewLeftMenu);
+                hideScrollViewMenu(scrollViewRightMenu);
+                if (menuListener != null)
+                    menuListener.closeMenu();
+            }
         }
 
         @Override
@@ -493,9 +519,6 @@ public class ResideMenu extends FrameLayout {
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         float currentActivityScaleX = viewActivity.getFolderX();
-
-        System.out.println(ev);
-
         if (currentActivityScaleX == 1.0f)
             setScaleDirectionByRawX(ev.getRawX());
 
@@ -528,7 +551,6 @@ public class ResideMenu extends FrameLayout {
                         ev.setAction(MotionEvent.ACTION_CANCEL);
                     }
                 } else if (pressedState == PRESSED_MOVE_HORIZONTAL) {
-//                    if (currentActivityScaleX < 0.95)
                     showScrollViewMenu(scrollViewMenu);
 
                     float targetScale = getTargetScale(ev.getRawX());
@@ -558,9 +580,7 @@ public class ResideMenu extends FrameLayout {
                         closeMenu();
                     }
                 }
-
                 break;
-
         }
         lastRawX = ev.getRawX();
         return super.dispatchTouchEvent(ev);
