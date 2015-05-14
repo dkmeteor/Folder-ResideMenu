@@ -287,7 +287,7 @@ public class ResideMenu extends FrameLayout {
     private Animator.AnimatorListener closeAnimatorListener = new Animator.AnimatorListener() {
         @Override
         public void onAnimationStart(Animator animator) {
-
+            moveMenuLayer(1);
         }
 
         @Override
@@ -333,6 +333,8 @@ public class ResideMenu extends FrameLayout {
             if (isOpened()) {
                 viewActivity.setTouchDisable(true);
                 viewActivity.setOnClickListener(viewActivityOnClickListener);
+
+                moveMenuLayer();
             } else {
                 viewActivity.setTouchDisable(false);
                 viewActivity.setOnClickListener(null);
@@ -553,6 +555,7 @@ public class ResideMenu extends FrameLayout {
                     }
                 } else if (pressedState == PRESSED_MOVE_HORIZONTAL) {
                     showScrollViewMenu(scrollViewMenu);
+                    moveMenuLayer(1);
 
                     float targetScale = getTargetScale(ev.getRawX());
                     ViewHelper.setAlpha(scrollViewMenu, (1 - targetScale) * 2.0f);
@@ -586,7 +589,6 @@ public class ResideMenu extends FrameLayout {
         lastRawX = ev.getRawX();
         return super.dispatchTouchEvent(ev);
     }
-
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
@@ -632,4 +634,27 @@ public class ResideMenu extends FrameLayout {
     private void hideScrollViewMenu(ScrollView scrollViewMenu) {
         scrollViewMenu.setVisibility(View.INVISIBLE);
     }
+
+    /**
+     * 0 is background
+     * 1 is above background
+     * 2 is viewActivity(Content)
+     *
+     *
+     * @param index
+     */
+    private void moveMenuLayer(int index) {
+        if (scrollViewMenu.getParent() != null) {
+            removeView(scrollViewMenu);
+            addView(scrollViewMenu, index);
+        }
+    }
+
+    private void moveMenuLayer() {
+        if (scrollViewMenu.getParent() != null) {
+            removeView(scrollViewMenu);
+            addView(scrollViewMenu);
+        }
+    }
+
 }
