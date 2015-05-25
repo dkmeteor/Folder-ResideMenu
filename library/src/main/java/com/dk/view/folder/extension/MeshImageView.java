@@ -7,7 +7,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Shader;
 import android.view.View;
-import android.widget.ImageView;
 
 public class MeshImageView extends View {
     private Bitmap mBitmap;
@@ -19,17 +18,6 @@ public class MeshImageView extends View {
     public MeshImageView(Context context) {
         super(context);
     }
-
-//    @Override
-//    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-//        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-//    }
-//
-//    @Override
-//    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-//        super.onLayout(changed, left, top, right, bottom);
-//    }
-//
 
     @Override
     public void draw(Canvas canvas) {

@@ -240,7 +240,6 @@ public class ResideMenu extends FrameLayout {
      * Show the menu;
      */
     public void openMenu(int direction) {
-
         if (isOpened())
             return;
 
@@ -255,7 +254,6 @@ public class ResideMenu extends FrameLayout {
 //        scaleDown_activity.playTogether(scaleDown_shadow);
 //        scaleDown_activity.playTogether(alpha_menu);
 //        scaleDown_activity.start();
-
         ObjectAnimator animator = ObjectAnimator.ofFloat(viewActivity, "FolderX", viewActivity.getFolderX(), 0.5f);
         animator.addListener(openAnimatorListener);
         animator.setDuration(mDuration);
@@ -277,7 +275,6 @@ public class ResideMenu extends FrameLayout {
 //        scaleUp_activity.playTogether(scaleUp_shadow);
 //        scaleUp_activity.playTogether(alpha_menu);
 //        scaleUp_activity.start();
-
         ObjectAnimator animator = ObjectAnimator.ofFloat(viewActivity, "FolderX", viewActivity.getFolderX(), 1f);
         animator.setDuration(500);
         animator.addListener(closeAnimatorListener);
@@ -510,9 +507,9 @@ public class ResideMenu extends FrameLayout {
                 return 1 + scaleFloatX;
         } else {
             if (isOpened())
-                return 1f;
+                return 0.5f - scaleFloatX;
             else
-                return 0.5f + scaleFloatX;
+                return 1 - scaleFloatX;
         }
     }
 
@@ -560,7 +557,6 @@ public class ResideMenu extends FrameLayout {
                     float targetScale = getTargetScale(ev.getRawX());
                     ViewHelper.setAlpha(scrollViewMenu, (1 - targetScale) * 2.0f);
                     viewActivity.setFolderX(targetScale);
-
                     lastRawX = ev.getRawX();
                     return true;
                 }
@@ -639,7 +635,6 @@ public class ResideMenu extends FrameLayout {
      * 0 is background
      * 1 is above background
      * 2 is viewActivity(Content)
-     *
      *
      * @param index
      */

@@ -66,7 +66,12 @@ public class CoreCalc {
                             * 102 + 2 * j]
                             * originVerts[i * 102 + 2 * j] / SIN_lENGTH_FACTOR));
                 } else {
-
+                    meshVerts[i * 102 + 2 * j] = originVerts[i * 102 + 2 * j];
+                    meshVerts[i * 102 + 2 * j + 1] = originVerts[i * 102 + 2 * j
+                            + 1]
+                            + (float) (SIN_A * (offset) * Math.sin(originVerts[i
+                            * 102 + 2 * j]
+                            * originVerts[i * 102 + 2 * j] / SIN_lENGTH_FACTOR));
                 }
             }
         return meshVerts;
@@ -83,16 +88,7 @@ public class CoreCalc {
      */
     private float[] applyScaleXEffect(float offset, float pointerY) {
         float curveFactor = 0;
-
-//                if (offset > 0.35) {
-//        curveFactor = (float) (1 + Math.pow(
-//                (offset) / 0.3f, 2) * 10);
-//                } else {
-//                    curveFactor = 1;
-//                }
-
         curveFactor = offset;
-//        System.out.println("curveFactor:"+curveFactor);
         for (int i = 0; i < 6; i++)
             for (int j = 0; j < 51; j++) {
                 if (mDirection == TouchDisableView.DIRECTION_RIGHT) {
@@ -105,7 +101,14 @@ public class CoreCalc {
                             * (meshVerts[i * 102 + 2 * j + 1] - pointerY)
                             / 5000 / width / curveFactor);
                 } else {
-//
+                    meshVerts[i * 102 + 2 * j] =width - (width- meshVerts[i * 102 + 2 * j])
+                            * (0.4f + 0.6f * offset * offset * offset * offset);
+
+                    meshVerts[i * 102 + 2 * j] =width-(width- meshVerts[i * 102 + 2 * j])
+                            * (1 + (1 - curveFactor) *
+                            (meshVerts[i * 102 + 2 * j + 1] - pointerY)
+                            * (meshVerts[i * 102 + 2 * j + 1] - pointerY)
+                            / 5000 / width / curveFactor);
                 }
             }
         return meshVerts;
@@ -113,13 +116,9 @@ public class CoreCalc {
 
     /**
      * (sinx^2)'=2x cosx^2
-     * <p/>
      * 2xcosx^2 = 0
-     * <p/>
      * x^2 = π/2+2nπ
-     * <p/>
-     * x^2 = (π/2+2nπ)*20000
-     * <p/>
+     * x^2 = (π/2+2nπ)*SIN_lENGTH_FACTOR
      *
      * @param offset
      * @return
@@ -136,14 +135,23 @@ public class CoreCalc {
         float p8 = (float) Math.sqrt((Math.PI / 2 + 7 * Math.PI) * SIN_lENGTH_FACTOR);
         float p9 = (float) Math.sqrt((Math.PI / 2 + 8 * Math.PI) * SIN_lENGTH_FACTOR);
 
-        int gray = ((int) (mAlpha * ((1l - offset) * 1f )) << 24)
+        int gray = ((int) (mAlpha * ((1l - offset) * 1f)) << 24)
                 | GRAY;
+        Shader shader = null;
 
-        Shader shader = new LinearGradient(0, 0, width, 0, new int[]{gray,
-                TRANSPARENT, gray, TRANSPARENT, gray, TRANSPARENT, gray,
-                TRANSPARENT, gray}, new float[]{p1 / width, p2 / width,
-                p3 / width, p4 / width, p5 / width, p6 / width, p7 / width,
-                p8 / width, p9 / width}, Shader.TileMode.REPEAT);
+        if (mDirection == TouchDisableView.DIRECTION_RIGHT) {
+            shader = new LinearGradient(0, 0, width, 0, new int[]{gray,
+                    TRANSPARENT, gray, TRANSPARENT, gray, TRANSPARENT, gray,
+                    TRANSPARENT, gray}, new float[]{p1 / width, p2 / width,
+                    p3 / width, p4 / width, p5 / width, p6 / width, p7 / width,
+                    p8 / width, p9 / width}, Shader.TileMode.REPEAT);
+        } else {
+            shader = new LinearGradient(0, 0, width, 0, new int[]{gray,
+                    TRANSPARENT, gray, TRANSPARENT, gray, TRANSPARENT, gray,
+                    TRANSPARENT, gray}, new float[]{(1 - p9 / width), (1 - p8 / width),
+                    (1 - p7 / width), (1 - p6 / width), (1 - p5 / width), (1 - p4 / width), (1 - p3 / width),
+                    (1 - p2 / width), (1 - p1 / width)}, Shader.TileMode.REPEAT);
+        }
         return shader;
     }
 
