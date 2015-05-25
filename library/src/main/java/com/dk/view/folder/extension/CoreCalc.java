@@ -69,7 +69,7 @@ public class CoreCalc {
                     meshVerts[i * 102 + 2 * j] = originVerts[i * 102 + 2 * j];
                     meshVerts[i * 102 + 2 * j + 1] = originVerts[i * 102 + 2 * j
                             + 1]
-                            + (float) (SIN_A * (offset) * Math.sin(originVerts[i
+                            + (float) (SIN_A * (1 - offset) * Math.sin(originVerts[i
                             * 102 + 2 * j]
                             * originVerts[i * 102 + 2 * j] / SIN_lENGTH_FACTOR));
                 }
