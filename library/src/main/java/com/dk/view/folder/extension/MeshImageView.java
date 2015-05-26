@@ -14,6 +14,8 @@ public class MeshImageView extends View {
     private float[] mVerts;
     private Paint mPaint;
     private Shader mShader;
+    private float mShaderAlpha;
+    private Paint mAlphaPaint = new Paint();
 
     public MeshImageView(Context context) {
         super(context);
@@ -25,7 +27,7 @@ public class MeshImageView extends View {
         if (mPaint == null)
             mPaint = new Paint();
 
-        if (mShader != null) {
+        if (mShader != null && mShaderBitmap == null) {
             mShaderBitmap = Bitmap.createBitmap(canvas.getWidth(),
                     canvas.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas tempCanvas = new Canvas(mShaderBitmap);
@@ -35,9 +37,11 @@ public class MeshImageView extends View {
         }
         if (mVerts != null) {
             canvas.drawBitmapMesh(mBitmap, 50, 5, mVerts, 0, null, 0, null);
-            if (mShaderBitmap != null)
+            if (mShaderBitmap != null) {
+                mAlphaPaint.setAlpha((int) (mShaderAlpha * 255f));
                 canvas.drawBitmapMesh(mShaderBitmap, 50, 5, mVerts, 0, null, 0,
-                        null);
+                        mAlphaPaint);
+            }
         } else
             canvas.drawBitmap(mBitmap, new Matrix(), mPaint);
     }
@@ -56,5 +60,9 @@ public class MeshImageView extends View {
 
     public void setShader(Shader shader) {
         mShader = shader;
+    }
+
+    public void setShaderAlpha(float alpha) {
+        mShaderAlpha = alpha;
     }
 }

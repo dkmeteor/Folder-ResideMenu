@@ -7,10 +7,19 @@ import com.dk.view.folder.TouchDisableView;
 
 public class CoreCalc {
 
+    final float p1 = (float) Math.sqrt(Math.PI / 2 * SIN_lENGTH_FACTOR);
+    final float p2 = (float) Math.sqrt((Math.PI / 2 + 1 * Math.PI) * SIN_lENGTH_FACTOR);
+    final float p3 = (float) Math.sqrt((Math.PI / 2 + 2 * Math.PI) * SIN_lENGTH_FACTOR);
+    final float p4 = (float) Math.sqrt((Math.PI / 2 + 3 * Math.PI) * SIN_lENGTH_FACTOR);
+    final float p5 = (float) Math.sqrt((Math.PI / 2 + 4 * Math.PI) * SIN_lENGTH_FACTOR);
+    final float p6 = (float) Math.sqrt((Math.PI / 2 + 5 * Math.PI) * SIN_lENGTH_FACTOR);
+    final float p7 = (float) Math.sqrt((Math.PI / 2 + 6 * Math.PI) * SIN_lENGTH_FACTOR);
+    final float p8 = (float) Math.sqrt((Math.PI / 2 + 7 * Math.PI) * SIN_lENGTH_FACTOR);
+    final float p9 = (float) Math.sqrt((Math.PI / 2 + 8 * Math.PI) * SIN_lENGTH_FACTOR);
     //λ
     private static final int SIN_lENGTH_FACTOR = 60000;
     private static final float SIN_A = 32;
-    private static final int GRAY = 0x444444;
+    private static final int GRAY = 0xff444444;
     private static final int TRANSPARENT = 0x00000000;
     private static int mAlpha = 0xff;
 
@@ -20,6 +29,7 @@ public class CoreCalc {
     private int mDirection = TouchDisableView.DIRECTION_LEFT;
 
     public void setDirection(int direction) {
+        mShader = null;
         mDirection = direction;
     }
 
@@ -39,7 +49,8 @@ public class CoreCalc {
     public float[] createOffsetVerts(float offset, float pointerY) {
         applyCurveXEffect(offset);
         applyScaleXEffect(offset, pointerY);
-        mShader = applyShadow(offset);
+        if (mShader == null)
+            mShader = applyShadow(offset);
         return meshVerts;
     }
 
@@ -101,10 +112,10 @@ public class CoreCalc {
                             * (meshVerts[i * 102 + 2 * j + 1] - pointerY)
                             / 5000 / width / curveFactor);
                 } else {
-                    meshVerts[i * 102 + 2 * j] =width - (width- meshVerts[i * 102 + 2 * j])
+                    meshVerts[i * 102 + 2 * j] = width - (width - meshVerts[i * 102 + 2 * j])
                             * (0.4f + 0.6f * offset * offset * offset * offset);
 
-                    meshVerts[i * 102 + 2 * j] =width-(width- meshVerts[i * 102 + 2 * j])
+                    meshVerts[i * 102 + 2 * j] = width - (width - meshVerts[i * 102 + 2 * j])
                             * (1 + (1 - curveFactor) *
                             (meshVerts[i * 102 + 2 * j + 1] - pointerY)
                             * (meshVerts[i * 102 + 2 * j + 1] - pointerY)
@@ -124,21 +135,11 @@ public class CoreCalc {
      * @return
      */
     private Shader applyShadow(float offset) {
+//        int gray = ((int) (mAlpha * ((1l - offset) * 1f)) << 24)
+//                | GRAY;
 
-        float p1 = (float) Math.sqrt(Math.PI / 2 * SIN_lENGTH_FACTOR);
-        float p2 = (float) Math.sqrt((Math.PI / 2 + 1 * Math.PI) * SIN_lENGTH_FACTOR);
-        float p3 = (float) Math.sqrt((Math.PI / 2 + 2 * Math.PI) * SIN_lENGTH_FACTOR);
-        float p4 = (float) Math.sqrt((Math.PI / 2 + 3 * Math.PI) * SIN_lENGTH_FACTOR);
-        float p5 = (float) Math.sqrt((Math.PI / 2 + 4 * Math.PI) * SIN_lENGTH_FACTOR);
-        float p6 = (float) Math.sqrt((Math.PI / 2 + 5 * Math.PI) * SIN_lENGTH_FACTOR);
-        float p7 = (float) Math.sqrt((Math.PI / 2 + 6 * Math.PI) * SIN_lENGTH_FACTOR);
-        float p8 = (float) Math.sqrt((Math.PI / 2 + 7 * Math.PI) * SIN_lENGTH_FACTOR);
-        float p9 = (float) Math.sqrt((Math.PI / 2 + 8 * Math.PI) * SIN_lENGTH_FACTOR);
-
-        int gray = ((int) (mAlpha * ((1l - offset) * 1f)) << 24)
-                | GRAY;
-        Shader shader = null;
-
+        int gray = GRAY;
+        Shader shader;
         if (mDirection == TouchDisableView.DIRECTION_RIGHT) {
             shader = new LinearGradient(0, 0, width, 0, new int[]{gray,
                     TRANSPARENT, gray, TRANSPARENT, gray, TRANSPARENT, gray,
@@ -167,7 +168,6 @@ public class CoreCalc {
                 result[i * 102 + 2 * j] = j * width / 50f;
                 result[i * 102 + 2 * j + 1] = i * height / 5f;
             }
-
         return result;
     }
 

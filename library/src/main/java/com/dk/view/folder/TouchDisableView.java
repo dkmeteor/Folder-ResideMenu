@@ -102,7 +102,6 @@ public class TouchDisableView extends FrameLayout {
             factor = 1f;
 
         folderFactor = factor;
-        System.out.println("folderFactor:" + folderFactor);
         if (getChildCount() > 0
                 && !(getChildAt(0) instanceof MeshImageView)) {
             createCache();
@@ -110,6 +109,7 @@ public class TouchDisableView extends FrameLayout {
         }
 
         mMeshImageView.setMeshVerts(mCoreCalc.createOffsetVerts(factor, 1000));
+        mMeshImageView.setShaderAlpha(1f-factor);
         mMeshImageView.setShader(mCoreCalc.getShader());
     }
 
