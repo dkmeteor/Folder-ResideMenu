@@ -109,7 +109,7 @@ public class TouchDisableView extends FrameLayout {
         }
 
         mMeshImageView.setMeshVerts(mCoreCalc.createOffsetVerts(factor, 1000));
-        mMeshImageView.setShaderAlpha(1f-factor);
+        mMeshImageView.setShaderAlpha(1f - factor);
         mMeshImageView.setShader(mCoreCalc.getShader());
     }
 
@@ -126,8 +126,10 @@ public class TouchDisableView extends FrameLayout {
     private boolean createCache() {
         if (getChildCount() > 0
                 && !(getChildAt(0) instanceof MeshImageView)) {
+            long start = System.currentTimeMillis();
             mDrawingCache = drawViewToBitmap(mDrawingCache, mContent,
                     mContent.getWidth(), mContent.getHeight(), 1, new BitmapDrawable());
+            System.out.println("drawViewToBitmap:" + (System.currentTimeMillis() - start));
 
             if (mCoreCalc == null)
                 mCoreCalc = new CoreCalc(mContent.getWidth(), mContent.getHeight());
@@ -140,17 +142,11 @@ public class TouchDisableView extends FrameLayout {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     private void replaceView() {
-//        mContent.setVisibility(View.GONE);
-//        removeAllViews();
-//        addView(mContent);
         mMeshImageView = new MeshImageView(getContext());
         mMeshImageView.setImageBitmap(mDrawingCache);
-//        setContent(mMeshImageView);
         this.removeView(mContent);
         addView(mMeshImageView);
-
         mCoreCalc.setDirection(mDirection);
-
         mMeshImageView.setMeshVerts(mCoreCalc.createOffsetVerts(1,
                 getHeight() / 2));
     }

@@ -22,6 +22,11 @@ public class MeshImageView extends View {
     }
 
     @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+    }
+
+    @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
         if (mPaint == null)
