@@ -92,8 +92,9 @@ public class TouchDisableView extends FrameLayout {
 
     /**
      * add by Dean Ding
+     *
+     * @param factor folder-factor
      */
-
     public void setFolderX(float factor) {
         if (factor < 0.5f)
             factor = 0.5f;
@@ -137,6 +138,10 @@ public class TouchDisableView extends FrameLayout {
 
     }
 
+    /**
+     * replace content view with DrawingCache
+     *
+     */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     private void replaceView() {
         mMeshImageView = new MeshImageView(getContext());
@@ -148,6 +153,9 @@ public class TouchDisableView extends FrameLayout {
                 getHeight() / 2));
     }
 
+    /**
+     * revert content view
+     */
     public void revertView() {
         if (mContent != null && mContent.getParent() == null) {
             removeAllViews();
@@ -155,6 +163,16 @@ public class TouchDisableView extends FrameLayout {
         }
     }
 
+    /**
+     *
+     * @param dest
+     * @param view
+     * @param width
+     * @param height
+     * @param downSampling
+     * @param drawable
+     * @return
+     */
     public Bitmap drawViewToBitmap(Bitmap dest, View view, int width,
                                    int height, int downSampling, Drawable drawable) {
         float scale = 1f / downSampling;

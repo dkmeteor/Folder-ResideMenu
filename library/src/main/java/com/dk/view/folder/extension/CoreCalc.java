@@ -55,7 +55,7 @@ public class CoreCalc {
     }
 
     /**
-     * f(x)=64*(1-offset)*sin(x*x/SIN_lENGTH_FACTOR)
+     * f(x)=SIN_A*(1-offset)*sin(x*x/SIN_lENGTH_FACTOR)
      * <p/>
      * Notice: when x is in 0~720 , it works well. You can see the Graph through
      * this link.
@@ -91,7 +91,7 @@ public class CoreCalc {
     /**
      * WTF
      * <p/>
-     * g(x) = offset * f(x)* (1+ (f(y)-pointerY)^2/10000/width)
+     * g(x) = offset * f(x)* (1+ (f(y)-pointerY)^2/5000/width)
      *
      * @param offset
      * @param pointerY
@@ -157,7 +157,8 @@ public class CoreCalc {
     }
 
     /**
-     * 50*5
+     *
+     *  build Mesh verts 50 X 5
      *
      * @return
      */
