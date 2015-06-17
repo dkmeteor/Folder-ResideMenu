@@ -103,8 +103,7 @@ public class TouchDisableView extends FrameLayout {
             factor = 1f;
 
         folderFactor = factor;
-        if (getChildCount() > 0
-                && !(getChildAt(0) instanceof MeshImageView)) {
+        if (getChildCount() == 1 && !(getChildAt(0) instanceof MeshImageView)) {
             createCache();
             replaceView();
         }
@@ -140,14 +139,13 @@ public class TouchDisableView extends FrameLayout {
 
     /**
      * replace content view with DrawingCache
-     *
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     private void replaceView() {
-        if(mMeshImageView==null)
+        if (mMeshImageView == null)
             mMeshImageView = new MeshImageView(getContext());
         mMeshImageView.setImageBitmap(mDrawingCache);
-//        this.removeView(mContent);
+        this.removeView(mContent);
         addView(mMeshImageView);
         mCoreCalc.setDirection(mDirection);
         mMeshImageView.setMeshVerts(mCoreCalc.createOffsetVerts(1,
@@ -159,14 +157,13 @@ public class TouchDisableView extends FrameLayout {
      */
     public void revertView() {
         if (mContent != null && mContent.getParent() == null) {
-            removeView(mMeshImageView);
-//            removeAllViews();
-//            addView(mContent);
+//            removeView(mMeshImageView);
+            removeAllViews();
+            addView(mContent);
         }
     }
 
     /**
-     *
      * @param dest
      * @param view
      * @param width
