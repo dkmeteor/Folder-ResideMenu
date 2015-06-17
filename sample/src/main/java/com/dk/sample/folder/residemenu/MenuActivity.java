@@ -52,7 +52,7 @@ public class MenuActivity extends FragmentActivity implements View.OnClickListen
 
         // create menu items;
         itemHome = new ResideMenuItem(this, R.drawable.icon_home, "Home");
-        itemProfile = new ResideMenuItem(this, R.drawable.icon_profile, "Profile");
+        itemProfile = new ResideMenuItem(this, R.drawable.icon_profile, "Gallery");
         itemCalendar = new ResideMenuItem(this, R.drawable.icon_calendar, "Calendar");
         itemSettings = new ResideMenuItem(this, R.drawable.icon_settings, "Settings");
 
@@ -94,7 +94,7 @@ public class MenuActivity extends FragmentActivity implements View.OnClickListen
         if (view == itemHome) {
             changeFragment(new HomeFragment());
         } else if (view == itemProfile) {
-            changeFragment(new ProfileFragment());
+            changeFragment(new GalleryFragment());
         } else if (view == itemCalendar) {
             changeFragment(new CalendarFragment());
         } else if (view == itemSettings) {

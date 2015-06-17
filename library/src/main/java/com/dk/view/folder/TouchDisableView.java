@@ -144,9 +144,10 @@ public class TouchDisableView extends FrameLayout {
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     private void replaceView() {
-        mMeshImageView = new MeshImageView(getContext());
+        if(mMeshImageView==null)
+            mMeshImageView = new MeshImageView(getContext());
         mMeshImageView.setImageBitmap(mDrawingCache);
-        this.removeView(mContent);
+//        this.removeView(mContent);
         addView(mMeshImageView);
         mCoreCalc.setDirection(mDirection);
         mMeshImageView.setMeshVerts(mCoreCalc.createOffsetVerts(1,
@@ -158,8 +159,9 @@ public class TouchDisableView extends FrameLayout {
      */
     public void revertView() {
         if (mContent != null && mContent.getParent() == null) {
-            removeAllViews();
-            addView(mContent);
+            removeView(mMeshImageView);
+//            removeAllViews();
+//            addView(mContent);
         }
     }
 
