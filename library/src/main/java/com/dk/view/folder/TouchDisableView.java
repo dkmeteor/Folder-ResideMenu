@@ -96,6 +96,7 @@ public class TouchDisableView extends FrameLayout {
      * @param factor folder-factor
      */
     public void setFolderX(float factor) {
+
         if (factor < 0.5f)
             factor = 0.5f;
 

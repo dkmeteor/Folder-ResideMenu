@@ -245,8 +245,6 @@ public class ResideMenu extends FrameLayout {
         ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(scrollViewMenu, "alpha", scrollViewMenu.getAlpha(), 1f);
         alphaAnimator.setDuration(500);
         alphaAnimator.start();
-
-        System.out.println("#####menu open");
     }
 
     /**
@@ -263,8 +261,6 @@ public class ResideMenu extends FrameLayout {
         ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(scrollViewMenu, "alpha", scrollViewMenu.getAlpha(), 0f);
         alphaAnimator.setDuration(500);
         alphaAnimator.start();
-
-        System.out.println("#####menu close");
     }
 
     private Animator.AnimatorListener closeAnimatorListener = new Animator.AnimatorListener() {
@@ -486,27 +482,35 @@ public class ResideMenu extends FrameLayout {
 
     private float getTargetScale(float currentRawX) {
         float scaleFloatX = ((currentRawX - lastActionDownX) / getScreenWidth());
+        float result;
         if (scaleDirection == DIRECTION_RIGHT) {
             if (isOpened())
-                return 0.5f + scaleFloatX;
+                result = 0.5f + scaleFloatX;
             else
-                return 1 + scaleFloatX;
+                result = 1 + scaleFloatX;
         } else {
             if (isOpened())
-                return 0.5f - scaleFloatX;
+                result = 0.5f - scaleFloatX;
             else
-                return 1 - scaleFloatX;
+                result = 1 - scaleFloatX;
         }
+        return result;
     }
 
     private float lastActionDownX, lastActionDownY;
+    private boolean mDirectionFlag = true;
+
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
 
         float currentActivityScaleX = viewActivity.getFolderX();
-        if (currentActivityScaleX == 1.0f)
+
+        if (currentActivityScaleX == 1.0f && mDirectionFlag) {
             setScaleDirectionByRawX(ev.getRawX());
+//            if(Math.abs(ev.getRawX() -lastRawX)>100f)
+//                mDirectionFlag = false;
+        }
 
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -554,9 +558,11 @@ public class ResideMenu extends FrameLayout {
                 if (pressedState != PRESSED_MOVE_HORIZONTAL) break;
 
                 pressedState = PRESSED_DONE;
+                mDirectionFlag = true;
                 if (isOpened()) {
-                    if (currentActivityScaleX > 0.75f)
+                    if (currentActivityScaleX > 0.75f) {
                         closeMenu();
+                    }
                     else
                         openMenu(scaleDirection);
                 } else {

@@ -32,7 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="7dp"
-                    android:text="RESideMenu DEMO"
+                    android:text="Folder-ResideMenu"
                     android:textSize="24sp"
                     android:textColor="#999999"
                     android:layout_gravity="center"/>
