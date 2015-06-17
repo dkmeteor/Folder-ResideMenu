@@ -66,6 +66,18 @@ So that in ignored view’s workplace, the slipping gesture will not be allowed 
 
 ---
 
+##Issue
+
+If you use a GridView/ListView/ScrollView, open/close menu may cause focus change,for example, GridView may auto scroll to top.
+If you don't want this,check the code in Sample->GalleryFragment
+
+```java
+        mGridView.setFocusable(false);
+        view.setFocusable(false);
+```
+
+---
+
 ##Thanks to
 
 [@specialcyci](https://github.com/SpecialCyCi)

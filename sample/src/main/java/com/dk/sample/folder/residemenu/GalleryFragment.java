@@ -18,10 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * User: special
- * Date: 13-12-22
- * Time: 下午1:31
- * Mail: specialcyci@gmail.com
+ * Dean Ding
  */
 public class GalleryFragment extends Fragment {
     static final String BASE = "http://i.imgur.com/";
