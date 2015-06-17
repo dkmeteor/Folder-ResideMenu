@@ -50,6 +50,7 @@ public class GalleryFragment extends Fragment {
         mGrid = (GridView) view.findViewById(R.id.grid);
         mGrid.setAdapter(new SampleGridViewAdapter(getActivity()));
         mGrid.setFocusable(false);
+        view.setFocusable(false);
         return view;
     }
 
