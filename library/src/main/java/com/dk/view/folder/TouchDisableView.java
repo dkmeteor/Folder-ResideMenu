@@ -126,11 +126,8 @@ public class TouchDisableView extends FrameLayout {
     private boolean createCache() {
         if (getChildCount() > 0
                 && !(getChildAt(0) instanceof MeshImageView)) {
-            long start = System.currentTimeMillis();
             mDrawingCache = drawViewToBitmap(mDrawingCache, mContent,
                     mContent.getWidth(), mContent.getHeight(), 1, new BitmapDrawable());
-            System.out.println("drawViewToBitmap:" + (System.currentTimeMillis() - start));
-
             if (mCoreCalc == null)
                 mCoreCalc = new CoreCalc(mContent.getWidth(), mContent.getHeight());
             return true;

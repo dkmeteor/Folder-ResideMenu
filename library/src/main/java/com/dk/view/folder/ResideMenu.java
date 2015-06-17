@@ -20,12 +20,6 @@ import com.nineoldandroids.view.ViewHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * User: special
- * Date: 13-12-10
- * Time: 下午10:44
- * Mail: specialcyci@gmail.com
- */
 public class ResideMenu extends FrameLayout {
 
     public static final int DIRECTION_LEFT = 0;
@@ -240,45 +234,37 @@ public class ResideMenu extends FrameLayout {
      * Show the menu;
      */
     public void openMenu(int direction) {
-        if (isOpened())
-            return;
-
         setScaleDirection(direction);
-//
         isOpened = true;
-//        AnimatorSet scaleDown_activity = buildScaleDownAnimation(viewActivity, mScaleValue, mScaleValue);
-//        AnimatorSet scaleDown_shadow = buildScaleDownAnimation(imageViewShadow,
-//                mScaleValue + shadowAdjustScaleX, mScaleValue + shadowAdjustScaleY);
-//        AnimatorSet alpha_menu = buildMenuAnimation(scrollViewMenu, 1.0f);
-//        scaleDown_shadow.addListener(animationListener);
-//        scaleDown_activity.playTogether(scaleDown_shadow);
-//        scaleDown_activity.playTogether(alpha_menu);
-//        scaleDown_activity.start();
+
         ObjectAnimator animator = ObjectAnimator.ofFloat(viewActivity, "FolderX", viewActivity.getFolderX(), 0.5f);
         animator.addListener(openAnimatorListener);
         animator.setDuration(mDuration);
         animator.start();
 
+        ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(scrollViewMenu, "alpha", scrollViewMenu.getAlpha(), 1f);
+        alphaAnimator.setDuration(500);
+        alphaAnimator.start();
+
+        System.out.println("#####menu open");
     }
 
     /**
      * Close the menu;
      */
     public void closeMenu() {
-        if (!isOpened() && viewActivity.getFolderX() == 1)
-            return;
         isOpened = false;
-//        AnimatorSet scaleUp_activity = buildScaleUpAnimation(viewActivity, 1.0f, 1.0f);
-//        AnimatorSet scaleUp_shadow = buildScaleUpAnimation(imageViewShadow, 1.0f, 1.0f);
-//        AnimatorSet alpha_menu = buildMenuAnimation(scrollViewMenu, 0.0f);
-//        scaleUp_activity.addListener(animationListener);
-//        scaleUp_activity.playTogether(scaleUp_shadow);
-//        scaleUp_activity.playTogether(alpha_menu);
-//        scaleUp_activity.start();
+
         ObjectAnimator animator = ObjectAnimator.ofFloat(viewActivity, "FolderX", viewActivity.getFolderX(), 1f);
         animator.setDuration(500);
         animator.addListener(closeAnimatorListener);
         animator.start();
+
+        ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(scrollViewMenu, "alpha", scrollViewMenu.getAlpha(), 0f);
+        alphaAnimator.setDuration(500);
+        alphaAnimator.start();
+
+        System.out.println("#####menu close");
     }
 
     private Animator.AnimatorListener closeAnimatorListener = new Animator.AnimatorListener() {
