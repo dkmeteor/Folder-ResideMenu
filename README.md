@@ -7,9 +7,9 @@ An extension of **[AndroidResideMenu](https://github.com/SpecialCyCi/AndroidResi
 ---
 ##Screenshot
 
+Please waiting for loading the images...
 
-Please waiting for loading the gif...
-
+![Examples](/screenshot.png)
 ![Examples](/Folder-residemenu.gif)
 
 
@@ -110,4 +110,4 @@ Dean <93440331@qq.com>
 
 Weibo：http://weibo.com/u/2699012760
 
-![](https://avatars0.githubusercontent.com/u/5019523?v=3&s=460)
+![](https://avatars0.githubusercontent.com/u/5019523?v=3&s=160)
