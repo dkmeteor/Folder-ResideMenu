@@ -271,6 +271,7 @@ public class ResideMenu extends FrameLayout {
 
         @Override
         public void onAnimationEnd(Animator animator) {
+            mDirectionFlag = true;
             viewActivity.revertView();
             if (isOpened()) {
                 viewActivity.setTouchDisable(true);
@@ -287,6 +288,7 @@ public class ResideMenu extends FrameLayout {
 
         @Override
         public void onAnimationCancel(Animator animator) {
+            mDirectionFlag = true;
             viewActivity.revertView();
         }
 
@@ -474,7 +476,7 @@ public class ResideMenu extends FrameLayout {
     }
 
     private void setScaleDirectionByRawX(float currentRawX) {
-        if (currentRawX < lastRawX)
+        if (currentRawX < lastActionDownX)
             setScaleDirection(DIRECTION_RIGHT);
         else
             setScaleDirection(DIRECTION_LEFT);
@@ -506,10 +508,12 @@ public class ResideMenu extends FrameLayout {
 
         float currentActivityScaleX = viewActivity.getFolderX();
 
-        if (currentActivityScaleX == 1.0f && mDirectionFlag) {
+        if (currentActivityScaleX == 1.0f && mDirectionFlag &&
+                ev.getAction() != MotionEvent.ACTION_DOWN) {
             setScaleDirectionByRawX(ev.getRawX());
-//            if(Math.abs(ev.getRawX() -lastRawX)>100f)
-//                mDirectionFlag = false;
+            //when scroll above 30 px, the direction will be locked.
+            if (Math.abs(ev.getRawX() - lastActionDownX) > 30)
+                mDirectionFlag = false;
         }
 
         switch (ev.getAction()) {
@@ -558,12 +562,10 @@ public class ResideMenu extends FrameLayout {
                 if (pressedState != PRESSED_MOVE_HORIZONTAL) break;
 
                 pressedState = PRESSED_DONE;
-                mDirectionFlag = true;
                 if (isOpened()) {
                     if (currentActivityScaleX > 0.75f) {
                         closeMenu();
-                    }
-                    else
+                    } else
                         openMenu(scaleDirection);
                 } else {
                     if (currentActivityScaleX < 0.75f) {
