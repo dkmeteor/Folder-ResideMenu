@@ -559,7 +559,10 @@ public class ResideMenu extends FrameLayout {
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
                 if (isInIgnoredView) break;
-                if (pressedState != PRESSED_MOVE_HORIZONTAL) break;
+                if (pressedState != PRESSED_MOVE_HORIZONTAL) {
+                    mDirectionFlag = true;
+                    break;
+                }
 
                 pressedState = PRESSED_DONE;
                 if (isOpened()) {
