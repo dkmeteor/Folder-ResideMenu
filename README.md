@@ -1,11 +1,11 @@
-#Folder-ResideMenu
+# Folder-ResideMenu
 ===========
 A Special Drawer.
 
 An extension of **[AndroidResideMenu](https://github.com/SpecialCyCi/AndroidResideMenu)**
 
 ---
-##Screenshot
+## Screenshot
 
 Please waiting for loading the images...
 
@@ -54,7 +54,7 @@ listen in the menu state
         }
     };
 ```
-##Ignored Views
+## Ignored Views
 On some occasions, the slipping gesture function for locking/unlocking menu, may have conflicts with your widgets such as viewpager.By then you can add the viewpager to ignored view.
 ```java
         // add gesture operation's ignored views
@@ -66,7 +66,7 @@ So that in ignored view’s workplace, the slipping gesture will not be allowed 
 
 ---
 
-##Issue
+## Issue
 
 If you use a GridView/ListView/ScrollView, open/close menu may cause focus change,for example, GridView may auto scroll to top.
 If you don't want this,check the code in Sample->GalleryFragment
@@ -78,7 +78,7 @@ If you don't want this,check the code in Sample->GalleryFragment
 
 ---
 
-##Thanks to
+## Thanks to
 
 [@specialcyci](https://github.com/SpecialCyCi)
 [AndroidResideMenu](https://github.com/SpecialCyCi/AndroidResideMenu)
@@ -86,7 +86,7 @@ If you don't want this,check the code in Sample->GalleryFragment
 ---
 
 
-#License
+# License
 
     Copyright 2015 Dean Ding
 
