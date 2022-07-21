@@ -107,5 +107,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v2
         with:
-          name: apk
+          name: Folder-ResideMenu
           path: sample/build/outputs/apk/debug/**.apk
